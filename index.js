@@ -19,6 +19,7 @@ buscarTarefas()
 
 function inserirTarefas(listaDeTarefas) {
     if (listaDeTarefas.length > 0) {
+        lista.innerHTML = ""
         listaDeTarefas.map(tarefa => {
             lista.innerHTML += `
             <li>
@@ -59,20 +60,20 @@ function novaTarefa() {
 
 function deletarTarefa(id) {
     fetch(`http://localhost:3000/tarefas/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
     })
         .then(res => res.json())
         .then(res => {
             alert("tarefa deletada com sucesso")
+            buscarTarefas()
         })
-    buscarTarefas()
 }
 
 function pesquisarTarefas() {
     let lis = document.querySelectorAll("ul li")
     if (busca.value.length > 0) {
         lis.forEach(li => {
-            if (!li.children[0].innerHTML.includes(busca.value)) {
+            if (!li.children[0].innerText.includes(busca.value)) {
                 li.classList.add('oculto')
             } else {
                 li.classList.remove('oculto')
